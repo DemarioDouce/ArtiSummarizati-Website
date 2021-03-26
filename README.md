@@ -1,2 +1,7 @@
-# ArtiSummarizati-Website
-A website for article summarization.
+# ArtiSummarizati
+
+---
+
+## Screenshot
+
+## ![Mockup image.](/Mockups/MockupThreeLayerNeuralNetwork.png)
