@@ -1,11 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "./res/css/index.css";
+//Pages
 import App from "./App";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" component={App} exact />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById("root")
 );
