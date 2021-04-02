@@ -4,17 +4,26 @@ const compromise = require("compromise");
 const natural = require("natural");
 const _ = require("lodash");
 
+//
+var userURL = "";
+var userSentenceNumber = 0;
+//
 exports.renderURLForm = (req, res) => {
   res.render("urlForm");
 };
 
+exports.getRequest = async (req, res, next) => {
+  userURL = req.body.url;
+  userSentenceNumber = req.body.sentenceNumber;
+
+  res.send(req.body);
+};
 exports.run = async (req, res, next) => {
-  const url =
-    "https://www.recode.net/ad/18027288/ai-sustainability-environment";
-  const numSentence = 3;
+  const url = userURL;
+  const numSentence = userSentenceNumber;
   const sentences = [];
   req.query.numSentence = numSentence;
-
+  console.log(url);
   try {
     // Get the full HTML content from URL
     var htmlContent = await axios.get(url);
@@ -45,7 +54,7 @@ exports.scrapeURL = async (req, res, next) => {
 
   try {
     // Get the full HTML content from URL
-    var htmlContent = await axios.get(req.query.summarizeURL);
+    var htmlContent = await axios.get(userURL);
 
     // Load the HTML into the Cheerio parser
     var result = cheerio.load(htmlContent.data);
@@ -72,7 +81,7 @@ exports.scrapeURL = async (req, res, next) => {
 };
 
 exports.processText = (req, res, next) => {
-  req.payload = summarizeSentences(req.sentences, req.query.numSentence);
+  req.payload = summarizeSentences(req.sentences, userSentenceNumber);
   next();
 };
 

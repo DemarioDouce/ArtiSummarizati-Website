@@ -1,5 +1,41 @@
+import React, { useState } from "react";
 import { Container, Button, Form } from "react-bootstrap";
-function App() {
+import axios from "axios";
+function App(props) {
+  const [state, setState] = useState({
+    url: "",
+    sentenceNumber: 0,
+  });
+  //
+  const apiUrl = "http://localhost:5000/processNLP";
+  //
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    //
+    const data = {
+      url: state.url,
+      sentenceNumber: state.sentenceNumber,
+    };
+    console.log(data);
+    axios
+      .post(apiUrl, data)
+      .then((result) => {
+        console.log(result.data);
+        props.history.push({
+          pathname: "/results",
+          state,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  //
+  const onChange = (e) => {
+    e.persist();
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
+  //
   return (
     <>
       <Container>
@@ -17,7 +53,7 @@ function App() {
             }}
           >
             <h1>ArtiSummarizati</h1>
-            <Form>
+            <Form onSubmit={handleOnSubmit}>
               <Form.Group>
                 <Form.Control
                   style={{
@@ -33,6 +69,8 @@ function App() {
                   id="url"
                   placeholder="URL"
                   type="text"
+                  value={state.url}
+                  onChange={onChange}
                 />
               </Form.Group>
               <Form.Group>
@@ -49,7 +87,9 @@ function App() {
                   name="sentenceNumber"
                   id="sentenceNumber"
                   placeholder="# of sentences"
-                  type="text"
+                  type="number"
+                  value={state.sentenceNumber}
+                  onChange={onChange}
                 />
               </Form.Group>
               <Button
