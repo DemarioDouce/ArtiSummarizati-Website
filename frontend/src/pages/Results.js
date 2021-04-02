@@ -60,7 +60,7 @@ const Results = (props) => {
                 <p key={index}>{item}</p>
               ))}
             </ListGroup>
-            <Link to="/register">
+            <Link to="/">
               <Button
                 style={{
                   backgroundColor: "#4CAF50",

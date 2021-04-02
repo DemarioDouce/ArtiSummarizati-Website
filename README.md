@@ -4,4 +4,4 @@
 
 ## Screenshot
 
-## ![Mockup image.](/Mockups/MockupThreeLayerNeuralNetwork.png)
+## ![Mockup image.](/Mockups/ArtiSummarizatiMockup.png)
