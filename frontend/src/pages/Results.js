@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Container, Spinner, Jumbotron, ListGroup } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { Container, Spinner, ListGroup, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Results = (props) => {
   const [data, setData] = useState([]);
@@ -36,26 +36,54 @@ const Results = (props) => {
     fetchData();
   }, []);
   return (
-    <Container>
-      {showLoading && (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
-      )}
-      <Jumbotron>
-        <h2 className="text-center mb-3">Summarize Result</h2>
-        <ListGroup>
-          {data.map((item, index) => (
-            <p key={index}>{item}</p>
-          ))}
-        </ListGroup>
-        <div>
-          <NavLink to="/" activeClassName="active">
-            Go Back
-          </NavLink>
+    <>
+      <Container>
+        <div className="text-center">
+          <div
+            style={{
+              position: "absolute",
+              top: "0",
+              bottom: "0",
+              left: "0",
+              right: "0",
+              margin: "auto",
+              width: "50vw",
+              height: "50vh",
+            }}
+          >
+            <h1>Summary</h1>
+            {showLoading && (
+              <Spinner animation="border" role="status"></Spinner>
+            )}
+            <ListGroup>
+              {data.map((item, index) => (
+                <p key={index}>{item}</p>
+              ))}
+            </ListGroup>
+            <Link to="/register">
+              <Button
+                style={{
+                  backgroundColor: "#4CAF50",
+                  border: "none",
+                  color: "white",
+                  padding: "15px 32px",
+                  textAlign: "center",
+                  textDecoration: "none",
+                  display: "inline-block",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                  margin: "10px",
+                }}
+                variant="primary"
+                type="submit"
+              >
+                GO BACK
+              </Button>
+            </Link>
+          </div>
         </div>
-      </Jumbotron>
-    </Container>
+      </Container>
+    </>
   );
 };
 export default Results;
